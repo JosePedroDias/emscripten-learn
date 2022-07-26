@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>wasm hello2 (cpp)</title>
+    </head>
+
+    <body>
+        <script>
+            function thisAlreadyExisted() {
+                window.alert('JS function called from emscripten');
+            }
+        </script>
+
+        <script src="build/hello2.js"></script>
+
+        <script>
+            Module.onRuntimeInitialized = function() {
+                console.log('onRuntimeInitialized called');
+                console.log('lerp result: ' + Module.lerp(1, 2, 0.5));
+
+                //Module.incOne();
+                //Module.doFetch();
+            };
+        </script>
+    </body>
+</html>

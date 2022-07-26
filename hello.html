@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>wasm hello (c)</title>
+    </head>
+
+    <body>
+        <script>
+            function thisAlreadyExisted() {
+                window.alert('JS function called from emscripten');
+            }
+        </script>
+
+        <script src="build/hello.js"></script>
+
+        <script>
+            // expose these C functions to JS:
+            const lerp = Module.cwrap('lerp', 'number', ['number', 'number', 'number']);
+            const incOne = Module.cwrap('incOne', 'void', []);
+            const doFetch = Module.cwrap('doFetch', 'void', []);
+
+            Module.onRuntimeInitialized = function() {
+                console.log('onRuntimeInitialized called');
+                console.log('lerp result: ' + lerp(1, 2, 0.5));
+
+                // incOne();
+                // doFetch();
+            };
+        </script>
+    </body>
+</html>
